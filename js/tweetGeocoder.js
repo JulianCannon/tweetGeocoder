@@ -302,16 +302,20 @@ tweetGeocoder.geocode = function(tweets, success, failure, finish, searchParamet
                     if (!this.waiting) {
                         return;
                     }
+                    console.log('gotCoords from_user, userName');
+                    console.log(this.from_user);
+                    console.log(userName);
+                    
                     if (this.from_user == userName) {
 
                         this.geo_info.valid = true;
                         this.geo_info.lat = lat;
                         this.geo_info.lng = lng;
+                        this.waiting = false;
                         if(!googleObj){
                             success(this, null);
                             checkIfDone();
-                        }
-                        else{
+                        } else {
                             success(this, googleObj);
                             checkIfDone();
                         }
@@ -424,6 +428,9 @@ tweetGeocoder.geocode = function(tweets, success, failure, finish, searchParamet
 
             for ( i = 0; i < results.length; i++) {
             	console.log('results[' + i + '].waiting: ' + results[i].waiting);
+            	console.log('results[' + i + '].geo_info.valid: ' + results[i].geo_info.valid);
+            	console.log('results[i]:');
+            	console.log(results[i]);
                 if (results[i].waiting) {
                     done = false;
                     break;
